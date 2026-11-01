@@ -113,7 +113,6 @@ pet/
 
 ```bash
 git clone https://github.com/ipmahonin/Document_generation_system
-cd pet
 ```
 
 ### 2. Настройка переменных окружения

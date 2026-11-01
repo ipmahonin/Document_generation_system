@@ -253,7 +253,7 @@ Content-Type: application/json
         "end_month": "11",
         "end_year": "2026"
     },
-    "type": "webhook",
+    "type": "webhook"
 }
 
 {

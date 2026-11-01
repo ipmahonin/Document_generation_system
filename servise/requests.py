@@ -11,7 +11,7 @@ from redis_cashed.redis_cashed import redis_client, CASHE_TTL, get_user_cashed_k
 import json
 from workers.tasks import generate_document_task
 import os
-
+from models.document_requests import RequesrStatus
 
 
 
@@ -66,7 +66,6 @@ def get_all(db:Session, user_id: UUID, skip: int, limit: int ):
         skip=skip,
         limit=limit
     )
-    print(data)
     requests = requests_get(db=db, data=data)
     result = [
         {
@@ -116,7 +115,7 @@ def get_download(db: Session, id: UUID, user_id: UUID):
         raise NotFoundError('Request not found')
     if not(db_request.user_id == user_id):
             raise BadRequestError("Bad request")
-    if not(db_request.status == 'comleted'):
+    if not(db_request.status == RequesrStatus.completed):
         raise BadRequestError("Not comleted")
     if not os.path.exists(db_request.file_path):
         raise NotFoundError('File not found')

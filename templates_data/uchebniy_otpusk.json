@@ -1,0 +1,29 @@
+{   
+    "name": "Заявление на учебный отпуск",
+    "description": "Официальное заявление сотрудника на предоставление учебного отпуска в связи с прохождением обучения",
+    "type": "object",
+    "properties": {
+        "director_title": {"type": "string"},
+        "organization": {"type": "string"},
+        "employee_position": {"type": "string"},
+        "name": {"type": "string"},
+        "start_day": {"type": "string"},
+        "start_month": {"type": "string"},
+        "start_year": {"type": "string"},
+        "end_day": {"type": "string"},
+        "end_month": {"type": "string"},
+        "end_year": {"type": "string"}
+    },
+    "required": [
+        "director_title",
+        "organization",
+        "employee_position",
+        "name",
+        "start_day",
+        "start_month",
+        "start_year",
+        "end_day",
+        "end_month",
+        "end_year"
+    ]
+}

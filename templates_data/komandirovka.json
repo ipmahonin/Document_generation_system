@@ -1,0 +1,39 @@
+{
+    "name": "Приказ о командировке",
+    "description": "Официальный шаблон приказа на отправку сотрудника в служебную командировку",
+    "type": "object",
+    "properties": {
+        "director_title": { "type": "string" },
+        "organization": { "type": "string" },
+        "employee_position": { "type": "string" },
+        "name": { "type": "string" },
+        "business_trip_employee_position": { "type": "string" },
+        "business_trip_employee_name": { "type": "string" },
+        "destination_city": { "type": "string" },
+        "days_count": { "type": "string" },
+        "purpose": { "type": "string" },
+        "start_day": { "type": "string" },
+        "start_month": { "type": "string" },
+        "start_year": { "type": "string" },
+        "end_day": { "type": "string" },
+        "end_month": { "type": "string" },
+        "end_year": { "type": "string" }
+    },
+    "required": [
+        "director_title",
+        "organization",
+        "employee_position",
+        "name",
+        "business_trip_employee_position",
+        "business_trip_employee_name",
+        "destination_city",
+        "days_count",
+        "purpose",
+        "start_day",
+        "start_month",
+        "start_year",
+        "end_day",
+        "end_month",
+        "end_year"
+    ]
+}

@@ -1,0 +1,121 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Заявление на учебный отпуск</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #000;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+        .recipient {
+            width: 55%;
+            margin-left: auto;
+            margin-bottom: 40px;
+        }
+        .recipient div {
+            margin-bottom: 4px;
+        }
+        h2 {
+            text-align: center;
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 28px;
+        }
+        .indent {
+            text-indent: 2em;
+            margin-bottom: 16px;
+        }
+        .signature-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 24px 0 32px;
+            text-align: center;
+        }
+        .signature-item {
+            flex: 1;
+        }
+        .line {
+            border-bottom: 1px solid #000;
+            height: 22px;
+            margin-bottom: 4px;
+        }
+        .signature-label {
+            font-size: 12px;
+            color: #555;
+        }
+        .approval-title {
+            margin-top: 24px;
+            font-weight: bold;
+        }
+        @media print {
+            body { margin: 20mm; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="recipient">
+        <div>{{ director_title }}</div>
+        <div>{{ organization }}</div>
+        <div style="margin-top: 12px;">от {{ employee_position }}</div>
+        <div>{{ name }}</div>
+    </div>
+
+    <h2>Заявление</h2>
+
+    <p class="indent">
+        Прошу предоставить мне учебный отпуск с «{{ start_day }}» {{ start_month }} {{ start_year }} г.
+        по «{{ end_day }}» {{ end_month }} {{ end_year }} г. согласно справке-вызову.
+    </p>
+    <p class="indent">Справку-вызов прилагаю.</p>
+
+    <!-- Подпись заявителя -->
+    <div class="signature-row" style="margin-top: 40px;">
+        <div class="signature-item">
+            <div class="line"></div>
+            <div class="signature-label">дата</div>
+        </div>
+        <div class="signature-item" style="flex: 1.5;">
+            <div class="line"></div>
+            <div class="signature-label">подпись</div>
+        </div>
+    </div>
+
+    <p class="approval-title">Согласовано:</p>
+    <div class="signature-row">
+        <div class="signature-item">
+            <div class="line"></div>
+            <div class="signature-label">должность</div>
+        </div>
+        <div class="signature-item">
+            <div class="line"></div>
+            <div class="signature-label">дата</div>
+        </div>
+        <div class="signature-item">
+            <div class="line"></div>
+            <div class="signature-label">ФИО / подпись</div>
+        </div>
+    </div>
+
+    <p class="approval-title">Утверждено:</p>
+    <div class="signature-row">
+        <div class="signature-item">
+            <div class="line"></div>
+            <div class="signature-label">должность</div>
+        </div>
+        <div class="signature-item">
+            <div class="line"></div>
+            <div class="signature-label">дата</div>
+        </div>
+        <div class="signature-item">
+            <div class="line"></div>
+            <div class="signature-label">ФИО / подпись</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{   
+    "name": "Заявление на увольнение",
+    "description": "Заявление сотрудника о расторжении трудового договора по собственному желанию",
+    "type": "object",
+    "properties": {
+        "director_title": { "type": "string" },
+        "organization": { "type": "string" },
+        "employee_position": { "type": "string" },
+        "name": { "type": "string" },
+        "last_day": { "type": "string" },
+        "last_month": { "type": "string" },
+        "last_year": { "type": "string" }
+    },
+    "required": [
+        "director_title",
+        "organization",
+        "employee_position",
+        "name",
+        "last_day",
+        "last_month",
+        "last_year"
+    ]
+}

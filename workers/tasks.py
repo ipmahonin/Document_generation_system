@@ -11,7 +11,7 @@ from repositories.notifications import notification_creat, notification_update
 from servise.dto import NotificationCreat
 from models.document_requests import RequesrStatus
 from models.notifications import NotificationStatus
-from redis_cashed.redis_cashed import redis_client, get_user_cashed_key
+from redis_cashed.redis_cashed import delete_user_cashed
 
 
 
@@ -24,8 +24,7 @@ def generate_document_task(self, request_id: str,  delivery_type: str):
         request.status = RequesrStatus.pending
         request = requests_update(db=db, data=request)
 
-        cashed_key =get_user_cashed_key(user_id=request.user_id)
-        redis_client.delete(cashed_key)
+        delete_user_cashed(user_id=request.user_id)
 
         print(f'Выполнение генерации по запросу {request_id}')
         output_path = get_output_pdf_path(request_id=request_id)
@@ -40,8 +39,7 @@ def generate_document_task(self, request_id: str,  delivery_type: str):
         request.file_path = output_path
         requests_update(db=db, data=request)
 
-        cashed_key =get_user_cashed_key(user_id=request.user_id)
-        redis_client.delete(cashed_key)
+        delete_user_cashed(user_id=request.user_id)
                             
         print(f'Генерация готова по запросу {request_id}')
         send_notification_task.delay(request_id=request_id, delivery_type=delivery_type)

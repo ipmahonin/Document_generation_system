@@ -36,7 +36,7 @@ def upgrade() -> None:
     sa.Column('user_id', sa.UUID(), nullable=False),
     sa.Column('template_id', sa.UUID(), nullable=False),
     sa.Column('input_data', sa.JSON(), nullable=False),
-    sa.Column('status', sa.Enum('pending', 'processing', 'comleted', 'failed', name='requesrstatus'), nullable=False),
+    sa.Column('status', sa.Enum('pending', 'processing', 'completed', 'failed', name='requesrstatus'), nullable=False),
     sa.Column('file_path', sa.String(), nullable=True),
     sa.Column('error_message', sa.Text(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),

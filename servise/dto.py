@@ -29,3 +29,9 @@ class NotificationCreat:
     request_id: UUID
     type: NotificationType
     status: NotificationStatus
+
+@dataclass
+class RequestsGetDTO:
+    user_id: UUID
+    skip: int = 0
+    limit: int = 10

@@ -1,13 +1,13 @@
 from sqlalchemy.orm import Session
 from repositories.requests import requests_creat, requests_delete, requests_get, requests_get_id
-from servise.dto import RequestsCreatDTO
+from servise.dto import RequestsCreatDTO, RequestsGetDTO
 from shemas.requests import RequestsCreat
 from repositories.templates import template_get_slug
 from uuid import UUID
 import jsonschema
 from jsonschema.exceptions import ValidationError as JSONschemaValidationError
 from  servise.exceptions import NotFoundError, BadRequestError
-from redis_cashed.redis_cashed import redis_client, CASHE_TTL, get_user_cashed_key
+from redis_cashed.redis_cashed import redis_client, CASHE_TTL, get_user_cashed_key, delete_user_cashed
 import json
 from workers.tasks import generate_document_task
 import os
@@ -43,8 +43,7 @@ def creat(db: Session, user_id: UUID, data: RequestsCreat):
         'created_at': result_db.created_at
     }
 
-    cashed_key =get_user_cashed_key(user_id=user_id)
-    redis_client.delete(cashed_key)
+    delete_user_cashed(user_id=user_id)
     print(f'Cбросили кеш пользователя {user_id}')
 
     generate_document_task.delay(
@@ -55,15 +54,20 @@ def creat(db: Session, user_id: UUID, data: RequestsCreat):
 
     return(result)
 
-def get_all(db:Session, user_id: UUID):
-    cashed_key =get_user_cashed_key(user_id=user_id)
+def get_all(db:Session, user_id: UUID, skip: int, limit: int ):
+    cashed_key =get_user_cashed_key(user_id = user_id, skip=skip, limit=limit)
     cached_data = redis_client.get(cashed_key)
     if cached_data:
         print("Данные о запросах из Redisa")
         return json.loads(cached_data)
     print("Данные о запросах в Redis отсутствуют")
-    
-    requests = requests_get(db=db, user_id=user_id)
+    data = RequestsGetDTO(
+        user_id=user_id,
+        skip=skip,
+        limit=limit
+    )
+    print(data)
+    requests = requests_get(db=db, data=data)
     result = [
         {
             'id': str(request.id),

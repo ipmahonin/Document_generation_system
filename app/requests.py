@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from db import get_db
 from sqlalchemy.orm import Session
 from app.security import get_current_user
@@ -23,9 +23,14 @@ def creat_requests(data: RequestsCreat, db: Session = Depends(get_db), user: Use
         raise HTTPException(status_code=500, detail="Server fail")
 
 @requests.get('',status_code=200)
-def get_requests(db: Session = Depends(get_db), user: Users = Depends(get_current_user)):
+def get_requests(
+    db: Session = Depends(get_db),
+    user: Users = Depends(get_current_user),
+    skip: int = Query(0, ge=0, description="Количество пропущенных записей"),
+    limit: int = Query(10, ge=1, le=100, description="Количество записей на странице")
+    ):
     try:
-        return get_all(db=db, user_id=user.id)
+        return get_all(db=db, user_id=user.id, skip=skip, limit=limit)
     except Exception as e:
         raise HTTPException(status_code=500, detail="Server fail")
 

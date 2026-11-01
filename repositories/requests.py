@@ -1,6 +1,6 @@
 from models.document_requests import DocumentRequest
 from sqlalchemy.orm import Session
-from servise.dto import RequestsCreatDTO
+from servise.dto import RequestsCreatDTO, RequestsGetDTO
 from uuid import UUID
 
 def requests_creat(db:Session, data: RequestsCreatDTO):
@@ -10,8 +10,8 @@ def requests_creat(db:Session, data: RequestsCreatDTO):
     db.refresh(requests)
     return requests
 
-def requests_get(db: Session, user_id: UUID):
-    return db.query(DocumentRequest).filter(DocumentRequest.user_id == user_id).all()
+def requests_get(db: Session, data: RequestsGetDTO):
+    return db.query(DocumentRequest).filter(DocumentRequest.user_id == data.user_id).offset(data.skip).limit(data.limit).all()
 
 def requests_get_id(db: Session, id: UUID):
     return db.query(DocumentRequest).filter(DocumentRequest.id == id).first()

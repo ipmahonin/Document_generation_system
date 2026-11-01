@@ -112,28 +112,14 @@ pet/
 ### 1. Клонирование репозитория
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/ipmahonin/Document_generation_system
 cd pet
 ```
 
 ### 2. Настройка переменных окружения
 
-Создайте файл `.env` в корневой директории проекта:
+Доп настройка не требуется
 
-```env
-SECRET_KEY=your-secret-key
-ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
-
-TEMPLATES_DIR=templates_data
-
-REDIS_URL=redis://redis:6379/0
-RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672//
-```
-
-Для `SECRET_KEY` используйте случайное криптографически стойкое значение.
-
-PostgreSQL в Docker Compose настраивается отдельно через переменные окружения контейнера.
 
 ### 3. Запуск контейнеров
 
@@ -250,23 +236,52 @@ Content-Type: application/json
 ```json
 {
     "template_slug": "komandirovka",
-    "type": "email",
     "input_data": {
         "director_title": "Генеральный директор",
-        "organization": "ООО Компания",
-        "employee_position": "Директор",
-        "name": "Иван Иванов",
-        "business_trip_employee_position": "Инженер",
-        "business_trip_employee_name": "Петр Петров",
-        "destination_city": "Москва",
-        "days_count": "5",
-        "purpose": "Рабочая поездка",
-        "start_day": "01",
+        "organization": "ООО «ТехноПром»",
+        "employee_position": "Веб-разработчик",
+        "name": "Иванов Иван Иванович",
+        "business_trip_employee_position": "Технический директор",
+        "business_trip_employee_name": "Петров Пётр Петрович",
+        "destination_city": "Санкт-Петербург",
+        "days_count": "3",
+        "purpose": "Участие в IT-конференции и переговоры с партнерами",
+        "start_day": "10",
         "start_month": "11",
         "start_year": "2026",
-        "end_day": "05",
+        "end_day": "13",
         "end_month": "11",
         "end_year": "2026"
+    },
+    "type": "webhook",
+}
+
+{
+    "template_slug": "uchebniy_otpusk",
+    "input_data": {
+        "director_title": "Генеральному директору",
+        "organization": "ООО «ТехноПром»",
+        "employee_position": "Менеджер по продажам",
+        "name": "Иванов Иван Иванович",
+        "start_day": "01",
+        "start_month": "12",
+        "start_year": "2026",
+        "end_day": "20",
+        "end_month": "12",
+        "end_year": "2026"
+    }
+}
+
+{
+    "template_slug": "uvolnenie",
+    "input_data": {
+        "director_title": "Генеральному директору",
+        "organization": "ООО «ТехноПром»",
+        "employee_position": "Старший разработчик",
+        "name": "Иванов Иван Иванович",
+        "last_day": "15",
+        "last_month": "12",
+        "last_year": "2026"
     }
 }
 ```
@@ -345,21 +360,3 @@ Authorization: Bearer <access_token>
 Для ограничения времени хранения кэшированных данных используется TTL.
 
 При создании новых запросов предусмотрена инвалидация соответствующего кэша.
-
-## Планы по развитию
-
-- Добавление автоматических тестов на pytest.
-- Реализация пагинации истории запросов.
-- Улучшение обработки ошибок и повторных попыток Celery.
-- Расширение механизма уведомлений.
-- Улучшение инвалидации Redis-кэша.
-- Добавление полноценной отмены запросов.
-- Улучшение логирования и мониторинга фоновых задач.
-
----
-
-## Автор
-
-Pet-проект для практического изучения Python Backend-разработки и построения асинхронных сервисов.
-
-**Основная цель:** разработка REST API с фоновой генерацией PDF-документов, взаимодействием с PostgreSQL, Redis и RabbitMQ.
